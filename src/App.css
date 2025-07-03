@@ -1,0 +1,444 @@
+/* --- Global Resets & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Mono:wght@400&display=swap');
+
+/* Resetting default browser styles and applying global box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- CSS Variables (Theme Palette & Sizing) --- */
+:root {
+    /* Colors */
+    --color-bg-primary: #1A1A2E;     /* Darkest background */
+    --color-bg-secondary: #1F253C;   /* Slightly lighter background for main areas */
+    --color-surface-elevated: #282E47; /* Background for panels/cards */
+    --color-border: #3A405A;         /* Subtle border color */
+    --color-text-primary: #E0E0E0;   /* Light text for dark background */
+    --color-text-secondary: #9FA6B2; /* Muted text for secondary info */
+    --color-accent-blue: #007BFF;    /* Main accent blue */
+    --color-accent-blue-light: #00A6F4; /* Lighter blue for gradients/hover */
+    --color-accent-blue-dark: #0056B3; /* Darker blue for active states */
+    --color-shadow: rgba(0, 0, 0, 0.3); /* Darker shadow for depth on dark theme */
+    --color-focus-ring: rgba(0, 123, 255, 0.4); /* Accent color for focus states */
+
+    /* Spacing */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 1.5rem;   /* 24px */
+    --space-lg: 2rem;     /* 32px */
+    --space-xl: 3rem;     /* 48px */
+
+    /* Border Radii */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.3s ease-in-out;
+}
+
+/* --- Base Body & Root Styles --- */
+/* CRITICAL for full screen and edge alignment: */
+body, #root {
+    min-height: 100vh; /* Ensures full viewport height */
+    height: 100vh;     /* Explicitly set height to 100% of viewport */
+    width: 100vw;      /* Explicitly set width to 100% of viewport */
+    margin: 0;         /* Remove any default body margin */
+    padding: 0;        /* Remove any default body padding */
+    display: flex;
+    flex-direction: column; /* Allows header and main content to stack */
+    font-family: 'Inter', sans-serif; /* Primary UI font */
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary); /* Dark background */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden; /* Crucial: Prevents body scrollbars if content overflows */
+}
+
+/* --- App Container (Overall Layout) --- */
+.app-container {
+    display: flex;
+    flex-direction: column; /* Stacks header above the playground */
+    flex-grow: 1; /* Allows container to fill remaining height after body/root setup */
+    width: 100%; /* Ensures it spans full width */
+    overflow: hidden; /* Prevents app-container scrollbars */
+}
+
+/* --- App Header (Top Nav) --- */
+/* CRITICAL for full width top nav: */
+.app-header {
+    background-color: var(--color-surface-elevated); /* Elevated surface for header */
+    padding: var(--space-md) var(--space-lg);
+    box-shadow: 0 4px 10px var(--color-shadow); /* More pronounced shadow for header */
+    z-index: 10; /* Ensures header is on top */
+    flex-shrink: 0; /* Prevents shrinking */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* If you add right-side elements later */
+    width: 100%; /* Explicitly ensure it's 100% width of its parent (.app-container) */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.header-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent-blue-light); /* Vibrant title color */
+    letter-spacing: 0.04em;
+    margin: 0; /* Remove default margin */
+}
+
+/* --- Playground Layout (Main Grid) --- */
+/* CRITICAL for sidebar to the edge: */
+.playground-layout {
+    flex-grow: 1; /* Occupy remaining vertical space after header */
+    display: grid;
+    /* This defines the columns: 250px for the sidebar, 1fr for the rest.
+       Because parent containers are full width with no padding,
+       the 250px column (sidebar) starts at the absolute left. */
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 1fr; /* Only one row, takes full height */
+    overflow: hidden; /* Crucial: Prevents playground-layout scrollbars, manages internal scrolling */
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    background-color: var(--color-bg-secondary); /* Slightly lighter than main background */
+    padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes footer to bottom */
+    border-right: 1px solid var(--color-border); /* Subtle separator */
+    box-shadow: 2px 0 8px var(--color-shadow); /* Shadow for depth */
+    flex-shrink: 0; /* Prevents sidebar from shrinking */
+    overflow-y: auto; /* Allow sidebar to scroll if content exceeds height */
+}
+
+.sidebar h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-accent-blue); /* Accent color for sidebar heading */
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.02em;
+}
+
+.sidebar select {
+    width: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-elevated); /* Match panel background */
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    appearance: none; /* Remove default system arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239FA6B2' d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E"); /* Custom SVG arrow */
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    margin-bottom: var(--space-md); /* Space below select */
+}
+
+.sidebar select:hover {
+    border-color: var(--color-accent-blue);
+}
+
+.sidebar select:focus {
+    outline: none;
+    border-color: var(--color-accent-blue);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.sidebar-footer {
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  text-align: center;
+    font-size: 0.85em;
+    color: var(--color-text-secondary); /* Muted text */
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    /* This overflow is important: if inner content (like editor/preview)
+       gets too tall, *this* section will scroll, not the entire page. */
+    overflow-y: auto;
+}
+
+.editor-preview-container {
+    flex-grow: 1; /* Allows the container to fill remaining space */
+    display: grid;
+    /* Two columns, each taking equal space */
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg); /* Space between editor and preview */
+}
+
+/* --- Editor and Preview Panels --- */
+.editor-panel, .preview-panel {
+    background-color: var(--color-surface-elevated);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 15px var(--color-shadow); /* Deeper shadow for panels */
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Important for scrollable content within */
+    min-width: 0; /* Allows flex/grid items to shrink below their content size */
+}
+
+.editor-panel label, .preview-panel label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.editor-panel textarea {
+    flex-grow: 1; /* Allows textarea to fill available height */
+    width: 100%;
+    min-height: 250px; /* Minimum height for better editing experience */
+    padding: var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-primary); /* Darker background for code */
+    color: var(--color-text-primary);
+    font-family: 'Fira Mono', monospace; /* Monospaced font for code */
+    font-size: 0.95rem;
+    line-height: 1.6; /* Improved readability */
+    resize: vertical; /* Allow vertical resizing */
+    margin-bottom: var(--space-md); /* Space above button */
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.editor-panel textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-blue);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+/* --- Export Button --- */
+.export-btn {
+    background: linear-gradient(90deg, var(--color-accent-blue) 0%, var(--color-accent-blue-light) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); /* Stronger shadow for button */
+    transition: background var(--transition-normal), transform 0.1s ease-out, box-shadow var(--transition-normal);
+    align-self: flex-end; /* Aligns to bottom-right of editor panel */
+    margin-top: auto; /* Pushes button to the bottom if content is short */
+}
+
+.export-btn:hover {
+    background: linear-gradient(90deg, var(--color-accent-blue-light) 0%, var(--color-accent-blue) 100%);
+    transform: translateY(-3px) scale(1.02); /* More pronounced lift effect */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4); /* Enhanced shadow on hover */
+}
+
+.export-btn:active {
+    background: var(--color-accent-blue-dark);
+    transform: translateY(0) scale(0.98); /* Press effect */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* --- Live Preview Iframe --- */
+.preview-panel iframe {
+    width: 100%;
+    flex-grow: 1; /* Allows iframe to fill available height of its container */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: white; /* Important: ensures the iframe's *own* background is white for content */
+    /* Ensure iframe itself has no unwanted padding/margin */
+    display: block;
+}
+
+/* --- Responsive Design --- */
+
+/* For medium screens (e.g., tablets, smaller laptops) */
+@media (max-width: 1024px) {
+    .playground-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-md);
+        height: auto;
+        overflow-y: hidden;
+    }
+    .sidebar h2 {
+        margin-bottom: 0;
+        margin-right: var(--space-sm);
+    }
+    .sidebar select {
+        flex-grow: 1;
+        max-width: 250px;
+        margin-bottom: 0;
+    }
+    .sidebar-footer {
+        display: none;
+    }
+    .main-content {
+        padding: var(--space-md);
+    }
+    .editor-preview-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: var(--space-md);
+    }
+}
+
+/* For small screens (e.g., mobile phones) */
+@media (max-width: 600px) {
+    .app-header {
+        padding: var(--space-sm);
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 40vh;
+        min-height: 0;
+        background: var(--color-bg-secondary);
+        box-shadow: 0 2px 8px rgba(34,34,59,0.04);
+    }
+    .sidebar select, .sidebar input, .sidebar button {
+        font-size: 1.1rem;
+        min-height: 44px;
+        padding: 0.7rem 1rem;
+    }
+    .sidebar input[type="text"] {
+        margin-bottom: 0.7rem;
+    }
+    .sidebar-footer {
+        font-size: 0.95em;
+        padding-bottom: 0.5rem;
+    }
+    .main-content {
+        padding: var(--space-xs);
+        min-width: 0;
+    }
+    .editor-panel, .preview-panel {
+        padding: var(--space-xs);
+        min-width: 0;
+        width: 100vw;
+        box-sizing: border-box;
+    }
+    .editor-panel textarea, .preview-panel iframe {
+        min-height: 120px;
+        font-size: 1.05rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .export-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
+    }
+    .editor-preview-container {
+        gap: var(--space-xs);
+        flex-direction: column;
+        width: 100vw;
+        min-width: 0;
+    }
+    .welcome-modal {
+        padding: 1rem !important;
+        max-width: 98vw !important;
+        font-size: 1.05rem;
+    }
+    label, .sidebar h2, .header-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* Theme root for dark mode (default) */
+.app-container.dark-theme {
+    --color-bg-primary: #1A1A2E;
+    --color-bg-secondary: #1F253C;
+    --color-surface-elevated: #282E47;
+    --color-border: #3A405A;
+    --color-text-primary: #E0E0E0;
+    --color-text-secondary: #9FA6B2;
+    --color-accent-blue: #007BFF;
+    --color-accent-blue-light: #00A6F4;
+    --color-accent-blue-dark: #0056B3;
+    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-focus-ring: rgba(0, 123, 255, 0.4);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+/* Theme root for light mode */
+.app-container.light-theme {
+    --color-bg-primary: #f7f8fa;
+    --color-bg-secondary: #f0f2f7;
+    --color-surface-elevated: #fff;
+    --color-border: #d1d5db;
+    --color-text-primary: #23232b;
+    --color-text-secondary: #5a5a6e;
+    --color-accent-blue: #007BFF;
+    --color-accent-blue-light: #38b6ff;
+    --color-accent-blue-dark: #0056B3;
+    --color-shadow: rgba(0, 0, 0, 0.08);
+    --color-focus-ring: rgba(0, 123, 255, 0.15);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+/* Ensure all backgrounds, borders, and text use the variables above */
+body, #root {
+    background-color: var(--color-bg-primary) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.sidebar, .editor-panel, .preview-panel, .app-header {
+    background-color: var(--color-surface-elevated) !important;
+    color: var(--color-text-primary) !important;
+}
+
+.sidebar select, .editor-panel textarea {
+    background-color: var(--color-bg-primary) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border) !important;
+}
+
+.export-btn {
+    /* No change needed, gradient works for both themes */
+}
+
+/* Adjust preview iframe for light mode */
+.app-container.light-theme .preview-panel iframe {
+    background: #fff !important;
+}
+
+.app-container.dark-theme .preview-panel iframe {
+    background: #fff !important;
+}
+
+/* Make modal always fit on mobile */
+.welcome-modal {
+    box-sizing: border-box;
+    max-width: 420px;
+    width: 90vw;
+    padding: 2.5rem 2rem;
+}
