@@ -10,7 +10,7 @@ A modern, responsive playground and component library builder for experimenting 
 - **Live Playground:** Edit HTML and custom CSS with real-time preview. 
 - **Component Library:** Insert modern, ready-to-use components by category.  
 - **Custom Components:** Save your own snippets for reuse.  
-- **Export & Share:** Download your work as HTML or share with a link.
+- **Export & Share:** Download your work as HTML or share with a link. 
 - **Light/Dark Mode:** Beautiful, accessible UI in both themes. 
 - **Mobile Friendly:** Fully responsive for all devices.
 - **Reset Playground:** Start fresh with one click.  
