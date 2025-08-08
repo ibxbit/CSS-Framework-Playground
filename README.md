@@ -13,7 +13,7 @@ A modern, responsive playground and component library builder for experimenting 
 - **Export & Share:** Download your work as HTML or share with a link.
 - **Light/Dark Mode:** Beautiful, accessible UI in both themes. 
 - **Mobile Friendly:** Fully responsive for all devices.
-- **Reset Playground:** Start fresh with one click.
+- **Reset Playground:** Start fresh with one click. 
  
 ---
 
