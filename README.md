@@ -7,7 +7,7 @@ A modern, responsive playground and component library builder for experimenting 
 ## 🚀 Features 
   
 - **Framework Selection:** Instantly switch between Bootstrap, Tailwind, and Bulma.  
-- **Live Playground:** Edit HTML and custom CSS with real-time preview.     
+- **Live Playground:** Edit HTML and custom CSS with real-time preview.      
 - **Component Library:** Insert modern, ready-to-use components by category.   
 - **Custom Components:** Save your own snippets for reuse.    
 - **Export & Share:** Download your work as HTML or share with a link.    
