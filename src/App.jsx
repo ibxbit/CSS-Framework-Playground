@@ -13,7 +13,7 @@ const componentSnippetsByCategory = {
   Bootstrap: {
     Buttons: [ 
       { name: 'Button', code: `<button class="btn btn-primary">Bootstrap Button</button>` },
-    ],
+    ], 
     Cards: [
       { name: 'Card', code: `<div class="card" style="width: 18rem;">
   <div class="card-body">
