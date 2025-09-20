@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css'; // Ensure this path is correct
-import WelcomeModal from './components/WelcomeModal';
+import WelcomeModal from './components/WelcomeModal'; 
 import Header from './components/Header';
 
 const frameworks = [
