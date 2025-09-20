@@ -22,7 +22,7 @@ const componentSnippetsByCategory = {
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>` },
-    ],
+    ], 
     Navigation: [
       { name: 'Navbar', code: `<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
