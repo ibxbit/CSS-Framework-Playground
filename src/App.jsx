@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css'; // Ensure this path is correct
 import WelcomeModal from './components/WelcomeModal'; 
-import Header from './components/Header';
+import Header from './components/Header'; 
 
 const frameworks = [
   { name: 'Bootstrap', cdn: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' },
