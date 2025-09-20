@@ -11,7 +11,7 @@ const frameworks = [
 
 const componentSnippetsByCategory = {
   Bootstrap: {
-    Buttons: [
+    Buttons: [ 
       { name: 'Button', code: `<button class="btn btn-primary">Bootstrap Button</button>` },
     ],
     Cards: [
